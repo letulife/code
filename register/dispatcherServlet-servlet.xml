@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- 表示层的声明：主要关于表示层前缀路径（如下：/view/）和后缀路径（如下：.jsp）. 这么声明代表你的表示层文件都在/view/下，而且都是.jsp文件 -->
+
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+	<!-- efinition of View Resolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	<!--此处用于声明action，在此下方要一一列出action的配置 -->
+	<!-- Request Mapping -->
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/regAction.do">regAction</prop>
+				<prop key="/loginAction.do">loginAction</prop>
+				<prop key="/index.do">Index</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Action Definition -->
+	<bean id="regAction" class="springmvc.RegAction">
+		<property name="commandClass">
+			<value>springmvc.RegInfo</value>
+		</property>
+
+		<property name="error_view">
+			<value>error</value>
+		</property>
+
+		<property name="success_view">
+			<value>success</value>
+		</property>
+	</bean>
+	<bean id="loginAction" class="springmvc.LoginAction">
+		<property name="commandClass">
+			<value>springmvc.RegInfo</value>
+		</property>
+		<property name="error_view">
+			<value>error</value>
+		</property>
+		<property name="success_view">
+			<value>loginSuccess</value>
+		</property>
+		<property name="register_view">
+			<value>regist</value>
+		</property>
+	</bean>
+	<bean id="Index" class="springmvc.Index">
+	</bean>
+	<bean id="regin" class="springmvc.RegInfo">
+		<property name="name" value="ni hao ma ?">
+
+		</property>
+	</bean>
+
+	<bean id="bao" class="springmvc.Bao">
+
+	</bean>
+</beans>
+
